@@ -8,9 +8,11 @@ This implementation is based on the following article:
 
 ### [http://www.scholarpedia.org/article/Nelder-Mead_algorithm#Initial_simplex](http://www.scholarpedia.org/article/Nelder-Mead_algorithm#Initial_simplex)
 
-<!-- ![result](https://github.com/owruby/nelder_mead/blob/master/figures/anim.gif) -->
+<p align="center">
+    <img src="https://github.com/bmartins95/NelderMead/blob/master/figures/paraboloid.gif">
+</p>
 
-## Installation
+### Installation
 
 ```
 pip install git+https://github.com/bmartins95/NelderMead
