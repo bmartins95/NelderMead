@@ -6,9 +6,15 @@ An alternative implementation of the Nelder-Mead method, there is no need of kno
 
 This implementation is based on the following article:
 
-###[http://www.scholarpedia.org/article/Nelder-Mead_algorithm#Initial_simplex](http://www.scholarpedia.org/article/Nelder-Mead_algorithm#Initial_simplex)
+### [http://www.scholarpedia.org/article/Nelder-Mead_algorithm#Initial_simplex](http://www.scholarpedia.org/article/Nelder-Mead_algorithm#Initial_simplex)
 
 <!-- ![result](https://github.com/owruby/nelder_mead/blob/master/figures/anim.gif) -->
+
+## Installation
+
+```
+pip install git+https://github.com/bmartins95/NelderMead
+```
 
 ### Dependencies
 
@@ -19,6 +25,8 @@ If you wish to run the examples the **matplotlib** dependency will also be neede
 ## Usage
 
 ### Example 1:
+
+The most simple example of the class usage is:
 
 ``` python
 from nelder_mead import NelderMead
@@ -38,7 +46,19 @@ if __name__ == "__main__":
     main()
 ```
 
-The NelderMead class also allow you to change the values of the transformation parameters:
+### Example 2:
+
+You can change the initial simplex construction by inheriting the NelderMead class and modifying the *buildSimplexPoints* function as follows:
+
+``` python
+    class NewNelderMead(NelderMead):
+        def buildSimplexPoints(self):
+            x0 = np.array([1.0, 1.0])
+            x1 = np.array([2.5, 1.0])
+            self.simplex = np.vstack((x0, x1, self.f_var))
+```
+
+The last line of the simplex must aways be **f_var**.
 
 ## References
 

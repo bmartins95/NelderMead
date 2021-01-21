@@ -1,7 +1,7 @@
 import numpy as np
 
 class NelderMead:
-    def __init__(self, f_variables, alpha = 1.0, gamma = 2.0, beta = 0.5, delta = 0.5, use_shrink = False):
+    def __init__(self, f_variables, alpha=1.0, gamma=2.0, beta=0.5, delta=0.5, use_shrink=False):
         if not (isinstance(f_variables, list) or isinstance(f_variables, np.ndarray)):
             raise TypeError("f_variables should be numpy.ndarray or list, i.e. mutable!")
         else:
