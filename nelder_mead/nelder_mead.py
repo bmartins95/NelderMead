@@ -5,7 +5,7 @@ class NelderMead:
         if not (isinstance(f_variables, list) or isinstance(f_variables, np.ndarray)):
             raise TypeError("f_variables should be numpy.ndarray or list, i.e. mutable!")
         else:
-            self.f_var = f_variables
+            self.f_variables = f_variables
 
         self.alpha = alpha
         self.gamma = gamma
@@ -19,7 +19,7 @@ class NelderMead:
         self.buildSimplexPoints()
 
     def run(self, f_value):
-        if self.gather_calls < len(self.f_var):
+        if self.gather_calls < len(self.f_variables):
             self.gatherRoutine(f_value)
         else:
             self.optimizeRoutine(f_value)
@@ -31,11 +31,11 @@ class NelderMead:
             self.f_values[self.gather_calls-1] = f_value
 
         for index,value in enumerate(self.simplex[self.gather_calls]):
-            self.f_var[index] = value
+            self.f_variables[index] = value
         self.gather_calls += 1
 
     def optimizeRoutine(self, f_value):
-        if self.gather_calls == len(self.f_var):
+        if self.gather_calls == len(self.f_variables):
             self.f_values[self.gather_calls-1] = f_value
             self.sort()
             self.computeCentroid()
@@ -77,8 +77,8 @@ class NelderMead:
                 self.shrink()
 
     def buildSimplexPoints(self):
-        self.simplex = np.vstack([np.eye(len(self.f_var), dtype = float), self.f_var])
-        for index, value in enumerate(self.f_var):
+        self.simplex = np.vstack([np.eye(len(self.f_variables), dtype = float), self.f_variables])
+        for index, value in enumerate(self.f_variables):
             h = 0.00025 if abs(value) < 1.0e-22 else 0.05
             self.simplex[index,:] = self.simplex[index,:] * h + value
 
@@ -94,13 +94,13 @@ class NelderMead:
         self.current_phase = "reflection"
         self.x_r = self.c + self.alpha*(self.c - self.simplex[-1,:])
         for index, value in enumerate(self.x_r):
-            self.f_var[index] = value
+            self.f_variables[index] = value
 
     def expansion(self):
         self.current_phase = "expansion"
         self.x_e = self.c + self.gamma*(self.x_r - self.c)
         for index,value in enumerate(self.x_e):
-            self.f_var[index] = value
+            self.f_variables[index] = value
 
     def contraction(self, f_value):
         self.current_phase = "contraction"
@@ -109,7 +109,7 @@ class NelderMead:
         else:
             self.x_c = self.c + self.beta*(self.x_r - self.c)
         for index, value in enumerate(self.x_c):
-            self.f_var[index] = value
+            self.f_variables[index] = value
 
     def shrink(self):
         self.current_phase = "gather"
@@ -120,4 +120,4 @@ class NelderMead:
         self.simplex = np.flip(self.simplex, 0)
         self.f_values = np.flip(self.f_values)
         for index, value in enumerate(self.simplex[0]):
-            self.f_var[index] = value
+            self.f_variables[index] = value

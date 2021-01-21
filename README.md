@@ -57,10 +57,10 @@ You can change the initial simplex construction by inheriting the NelderMead cla
         def buildSimplexPoints(self):
             x0 = np.array([1.0, 1.0])
             x1 = np.array([2.5, 1.0])
-            self.simplex = np.vstack((x0, x1, self.f_var))
+            self.simplex = np.vstack((x0, x1, self.f_variables))
 ```
 
-The last line of the simplex must aways be **f_var**.
+The last line of the simplex must aways be **f_variables**.
 
 ## References
 
