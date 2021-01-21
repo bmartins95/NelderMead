@@ -1,6 +1,9 @@
-import unittest
 import numpy as np
-from nelder_mead import NelderMead
+import unittest
+import sys
+
+sys.path.append('../')
+from nelder_mead.nelder_mead import NelderMead
 
 class TestNelderMead(NelderMead):
     def buildSimplexPoints(self):

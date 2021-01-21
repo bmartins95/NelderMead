@@ -1,3 +1,5 @@
+![alt text](https://travis-ci.com/bmartins95/NelderMead.svg?branch=master)
+
 # The Nelder-Mead method
 
 An alternative implementation of the Nelder-Mead method, there is no need of knowing the function being optimized. The code is completely implemented in python.
@@ -61,6 +63,10 @@ You can change the initial simplex construction by inheriting the NelderMead cla
 ```
 
 The last line of the simplex must aways be **f_variables**.
+
+The original implementation of the simplex construction is based on this answer:
+
+https://stackoverflow.com/questions/17928010/choosing-the-initial-simplex-in-the-nelder-mead-optimization-algorithm
 
 ## References
 
