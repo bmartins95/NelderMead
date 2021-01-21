@@ -4,8 +4,8 @@ from nelder_mead import NelderMead
 
 class TestNelderMead(NelderMead):
     def buildSimplexPoints(self):
-        self.simplex = np.vstack([np.eye(len(self.f_var), dtype = float), self.f_var])
-        for index, value in enumerate(self.f_var):
+        self.simplex = np.vstack([np.eye(len(self.f_variables), dtype = float), self.f_variables])
+        for index, value in enumerate(self.f_variables):
             h = 0.00025 if abs(value) < 1.0e-22 else 0.05
             self.simplex[index,:] = self.simplex[index,:] * h
 
@@ -64,7 +64,7 @@ class TestReflectionSubroutine(unittest.TestCase):
         self.assertTrue(np.allclose(self.nelder.f_values, self.f_values_to_check1))
         self.assertTrue(np.allclose(self.nelder.c, self.centroid_to_check1))
         self.assertTrue(np.allclose(self.nelder.x_r, self.x_r_to_check))
-        self.assertTrue(np.allclose(self.nelder.x_r, self.nelder.f_var))
+        self.assertTrue(np.allclose(self.nelder.x_r, self.nelder.f_variables))
 
 
     def testReflection(self):
@@ -101,7 +101,7 @@ class TestExpansionSubroutine(unittest.TestCase):
 
         self.nelder.run(2.0e-04)
         self.assertTrue(np.allclose(self.nelder.x_e, self.x_e_to_check))
-        self.assertTrue(np.allclose(self.nelder.f_var, self.x_e_to_check))
+        self.assertTrue(np.allclose(self.nelder.f_variables, self.x_e_to_check))
 
     def testGoodExpansion(self):
         for i in range(0, 4):
