@@ -1,6 +1,6 @@
 import unittest
 import numpy as np
-from NelderMead import NelderMead
+from nelder_mead import NelderMead
 
 class TestNelderMead(NelderMead):
     def buildSimplexPoints(self):
