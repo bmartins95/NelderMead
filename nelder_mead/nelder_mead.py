@@ -25,24 +25,16 @@ class NelderMead:
             self.optimizeRoutine(f_value)
 
     def gatherRoutine(self, f_value):
-        if self.gather_calls == 0:
-            self.f_values[-1] = f_value
-        else:
-            self.f_values[self.gather_calls-1] = f_value
-
+        self.f_values[self.gather_calls-1] = f_value
         for index,value in enumerate(self.simplex[self.gather_calls]):
             self.f_variables[index] = value
         self.gather_calls += 1
 
     def optimizeRoutine(self, f_value):
         if self.gather_calls == len(self.f_variables):
-            self.f_values[self.gather_calls-1] = f_value
+            self.gatherRoutine(f_value)
             self.sort()
             self.computeCentroid()
-            self.gather_calls += 1
-            self.current_phase = "pre_reflection"
-
-        if self.current_phase == "pre_reflection":
             self.reflection()
         elif self.current_phase == "reflection":
             if f_value < self.f_values[-2] and f_value >= self.f_values[0]:
@@ -104,20 +96,24 @@ class NelderMead:
 
     def contraction(self, f_value):
         self.current_phase = "contraction"
+
         if f_value >= self.f_values[-1]:
             self.x_c = self.c + self.beta*(self.simplex[-1,:] - self.c)
         else:
             self.x_c = self.c + self.beta*(self.x_r - self.c)
+
         for index, value in enumerate(self.x_c):
             self.f_variables[index] = value
 
     def shrink(self):
         self.current_phase = "gather"
         self.gather_calls = 1
+
         for index in range(1 , self.simplex.shape[1]+1):
             self.simplex[index,:] = self.simplex[0,:] + self.delta*(self.simplex[index,:] - self.simplex[0,:])
 
         self.simplex = np.flip(self.simplex, 0)
         self.f_values = np.flip(self.f_values)
+
         for index, value in enumerate(self.simplex[0]):
             self.f_variables[index] = value
